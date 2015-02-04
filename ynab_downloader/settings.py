@@ -181,6 +181,11 @@ CHASE_SETTINGS = {
                 'selector': 'BtnDownloadActivity',
                 'selector_type': 'id',
                 'type': 'click'
+            },
+            {
+                'selector': 'ErrorMessage',
+                'selector_type': 'id',
+                'is_error': True
             }
         ]
     }
