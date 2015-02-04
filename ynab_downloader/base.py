@@ -1,6 +1,7 @@
 import logging
 
 from .settings import CHASE_SETTINGS
+from selenium.common.exceptions import NoSuchElementException
 
 logger = logging.getLogger(__name__)
 
@@ -55,7 +56,8 @@ class BaseChromeDownloader(object):
         for command in self.commands:
             selector = command['selector']
             selector_type = command['selector_type']
-            _type = command['type']
+            _type = command.get('type')
+            is_error = command.get('is_error', False)
             value, element = None, None
             self.log.debug('Selector: {}, Selector Type: {}, type: {}'.format(
                 selector,
@@ -69,13 +71,22 @@ class BaseChromeDownloader(object):
 
             # get the required element
             if selector_type == 'id':
-                element = self.driver.find_element_by_id(selector)
+                try:
+                    element = self.driver.find_element_by_id(selector)
+                except NoSuchElementException:
+                    continue
+
             if selector_type == 'css':
                 element = self.driver.find_element_by_css_selector(selector)
             if selector_type == 'tag':
                 element = self.driver.find_element_by_tag_name(selector)
             if selector_type == 'link_text':
                 element = self.driver.find_element_by_link_text(selector)
+
+            if element and is_error:
+                self.log.warning('Error occured. For more info, view browser.')
+                return
+
             self.log.debug('Tag Name: {}, Text: {}'.format(
                 element.tag_name,
                 element.text
