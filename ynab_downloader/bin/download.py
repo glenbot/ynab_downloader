@@ -23,7 +23,7 @@ def main(ctx, logging):
 @click.option(
     '--username', prompt=True, help='Your Chase bank online username.')
 @click.option(
-    '--password', prompt=True, hide_input=True, confirmation_prompt=True,
+    '--password', prompt=True, hide_input=True,
     help='Your Chase bank online password.'
 )
 @click.option(
@@ -32,7 +32,7 @@ def main(ctx, logging):
     show_default=True
 )
 @click.option(
-    '--account_id', prompt=True, hide_input=True, confirmation_prompt=True,
+    '--account_id', prompt=True, hide_input=True,
     help='Account id. Used to match select boxes on the UI.'
 )
 @click.option(
