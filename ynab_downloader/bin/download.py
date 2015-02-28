@@ -75,7 +75,7 @@ def chase(ctx, *args, **kwargs):
 )
 @click.option(
     '--account_name', prompt=True, hide_input=True,
-    help='Case sensitive. elects the account to download statements from.'
+    help='Case sensitive. Selects the account to download statements from.'
 )
 @click.option(
     '--from_date', default=date(now.year, now.month, 1).strftime('%m/%d/%Y'),
