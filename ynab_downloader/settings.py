@@ -245,5 +245,24 @@ BOFA_SETTINGS = {
             'selector_type': 'css',
             'type': 'click'
         }
+    ],
+    'custom-date-commands': [
+        {
+            'selector': 'cust-date',
+            'selector_type': 'id',
+            'type': 'click'
+        },
+        {
+            'selector': 'start-date',
+            'selector_type': 'id',
+            'type': 'fill',
+            'value': '{from_date}'
+        },
+        {
+            'selector': 'end-date',
+            'selector_type': 'id',
+            'type': 'fill',
+            'value': '{to_date}'
+        },
     ]
 }

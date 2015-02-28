@@ -78,14 +78,12 @@ def chase(ctx, *args, **kwargs):
     help='Case sensitive. Selects the account to download statements from.'
 )
 @click.option(
-    '--from_date', default=date(now.year, now.month, 1).strftime('%m/%d/%Y'),
-    help='Transactions from this date.',
-    show_default=True
+    '--from_date',
+    help='Transactions from this date. Default: Current transaction period'
 )
 @click.option(
     '--to_date', default=now.strftime('%m/%d/%Y'),
-    help='Transactions to this date.',
-    show_default=True
+    help='Transactions to this date. Default: Current transaction period'
 )
 @click.option(
     '--format', type=click.Choice(['qfx', 'qif2', 'qif4', 'csv', 'txt']), default='qfx',

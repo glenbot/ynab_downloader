@@ -117,4 +117,15 @@ class BofaDownloader(BaseChromeDownloader):
 
     @property
     def commands(self):
-        return self.settings['commands']
+        """Returns all commands that will
+        be run in order to perform the [download] task.
+        """
+        commands = self.settings['commands']
+
+        if self.params.get('from_date') is not None:
+            # Inserts a list into a list at a specific point.
+            # In this case we extend from the 3rd to last item
+            # of the original [commands] list.
+            commands[-2:-2] = self.settings['custom-date-commands']
+
+        return commands
