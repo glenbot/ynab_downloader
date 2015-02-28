@@ -190,3 +190,60 @@ CHASE_SETTINGS = {
         ]
     }
 }
+
+
+# Bank of America Settings
+BOFA_SETTINGS = {
+    'url': 'https://www.bankofamerica.com',
+    'commands': [
+        {
+            'selector': 'multiID',
+            'selector_type': 'id',
+            'type': 'select',
+            'value': 'add-id-link'
+        },
+        {
+            'selector': 'input.search-text-box',
+            'selector_type': 'css',
+            'type': 'fill',
+            'value': '{username}'
+        },
+        {
+            'selector': 'hp-sign-in-btn',
+            'selector_type': 'id',
+            'type': 'click'
+        },
+        {
+            'selector': 'tlpvt-passcode-input',
+            'selector_type': 'id',
+            'type': 'fill',
+            'value': '{password}'
+        },
+        {
+            'selector': 'passcode-confirm-sk-submit',
+            'selector_type': 'id',
+            'type': 'click'
+        },
+        {
+            'selector': '{account_name}',
+            'selector_type': 'id',
+            'type': 'click'
+        },
+        {
+            'selector': 'a.export-trans-view',
+            'selector_type': 'css',
+            'type': 'click'
+        },
+        {
+            'selector': 'select_filetype',
+            'selector_type': 'id',
+            'type': 'select',
+            'value': '{format}'
+        },
+        {
+            'selector': 'a.submit-download',
+            'selector_type': 'css',
+            'type': 'click'
+        }
+    ]
+}
