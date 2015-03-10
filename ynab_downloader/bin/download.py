@@ -64,3 +64,44 @@ def chase(ctx, *args, **kwargs):
     except Exception:
         driver.close()
         raise
+
+
+@main.command()
+@click.option(
+    '--username', prompt=True, help='Your Bank of America online username.')
+@click.option(
+    '--password', prompt=True, hide_input=True,
+    help='Your Bank of America online password.'
+)
+@click.option(
+    '--account_name', prompt=True, hide_input=True,
+    help='Case sensitive. Selects the account to download statements from.'
+)
+@click.option(
+    '--from_date',
+    help='Transactions from this date. Default: Current transaction period'
+)
+@click.option(
+    '--to_date', default=now.strftime('%m/%d/%Y'),
+    help='Transactions to this date. Default: Current transaction period'
+)
+@click.option(
+    '--format', type=click.Choice(['qfx', 'qif2', 'qif4', 'csv', 'txt']), default='qfx',
+    help='Output format of the account export.',
+    show_default=True
+)
+@click.pass_context
+def bofa(ctx, *args, **kwargs):
+    from ..base import BofaDownloader
+    driver_path = ctx.obj['driver_path']
+    driver = get_driver(driver_path)
+
+    try:
+        bofa_downloader = BofaDownloader(driver, kwargs)
+        bofa_downloader.run()
+    except KeyboardInterrupt:
+        driver.close()
+    except Exception:
+        driver.close()
+        raise
+
