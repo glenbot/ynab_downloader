@@ -1,6 +1,6 @@
 import logging
 
-from .settings import CHASE_SETTINGS
+from .settings import BOFA_SETTINGS, CHASE_SETTINGS
 from selenium.common.exceptions import NoSuchElementException
 
 logger = logging.getLogger(__name__)
@@ -54,10 +54,12 @@ class BaseChromeDownloader(object):
         self.driver.get(self.settings['url'])
 
         for command in self.commands:
-            selector = command['selector']
+            selector = command['selector'].format(**self.params)
             selector_type = command['selector_type']
             _type = command.get('type')
+
             is_error = command.get('is_error', False)
+
             value, element = None, None
             self.log.debug('Selector: {}, Selector Type: {}, type: {}'.format(
                 selector,
@@ -108,3 +110,22 @@ class ChaseDownloader(BaseChromeDownloader):
     @property
     def commands(self):
         return self.settings['commands'][self.params['account_type']]
+
+
+class BofaDownloader(BaseChromeDownloader):
+    settings = BOFA_SETTINGS
+
+    @property
+    def commands(self):
+        """Returns all commands that will
+        be run in order to perform the [download] task.
+        """
+        commands = self.settings['commands']
+
+        if self.params.get('from_date') is not None:
+            # Inserts a list into a list at a specific point.
+            # In this case we extend from the 3rd to last item
+            # of the original [commands] list.
+            commands[-2:-2] = self.settings['custom-date-commands']
+
+        return commands
