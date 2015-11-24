@@ -42,6 +42,68 @@ LOGGING = {
 CHASE_SETTINGS = {
     'url': 'https://www.chase.com',
     'commands': {
+        'singlecc': [
+            {
+                'selector': 'usr_name_home',
+                'selector_type': 'id',
+                'type': 'fill',
+                'value': '{username}'
+            },
+            {
+                'selector': 'usr_password_home',
+                'selector_type': 'id',
+                'type': 'fill',
+                'value': '{password}'
+            },
+            {
+                'selector': 'a[data-pt-name="unknwnlogin"]',
+                'selector_type': 'css',
+                'type': 'click'
+            },
+            {
+                'selector': 'Go_to_Customer_Center',
+                'selector_type': 'id',
+                'type': 'click'
+            },
+            {
+                'selector': 'a[name="RelatedActivity"]',
+                'selector_type': 'css',
+                'type': 'click'
+            },
+            {
+                'selector': 'SelectDateRange',
+                'selector_type': 'id',
+                'type': 'click'
+            },
+            {
+                'selector': 'FromDate_Value',
+                'selector_type': 'id',
+                'type': 'fill',
+                'value': '{from_date}'
+            },
+            {
+                'selector': 'ToDate_Value',
+                'selector_type': 'id',
+                'type': 'fill',
+                'value': '{to_date}'
+            },
+            {
+                'selector': 'DownloadType',
+                'selector_type': 'id',
+                'type': 'select',
+                'value': '{format}'
+            },
+            {
+                'selector': 'BtnDownloadActivity',
+                'selector_type': 'id',
+                'type': 'click'
+            },
+            {
+                'selector': 'ErrorMessage',
+                'selector_type': 'id',
+                'is_error': True
+            }
+        ],
         'cc': [
             {
                 'selector': 'usr_name_home',

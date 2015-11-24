@@ -27,8 +27,8 @@ def main(ctx, logging):
     help='Your Chase bank online password.'
 )
 @click.option(
-    '--account_type', type=click.Choice(['cc', 'checking']), default='cc',
-    help='The type of account you want data from. Used for traversing different download areas.',
+    '--account_type', type=click.Choice(['cc', 'singlecc', 'checking']), default='cc',
+    help='The type of account you want data from. Used for traversing different download areas. Use "singlecc" if you only have one credit card account with chase.',
     show_default=True
 )
 @click.option(
