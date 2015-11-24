@@ -71,8 +71,6 @@ def chase(ctx, *args, **kwargs):
     driver_path = ctx.obj['driver_path']
     driver = get_driver(driver_path)
 
-    print(kwargs)
-    return
     try:
         chase_downloader = ChaseDownloader(driver, kwargs)
         chase_downloader.run()
