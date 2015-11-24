@@ -10,6 +10,21 @@ now = datetime.now()
 logger = logging.getLogger(__name__)
 
 
+class StoredAccountChoice(click.Choice):
+    def convert(self, value, param, ctx):
+        value = super(StoredAccountChoice, self).convert(value, param, ctx)
+        ctx.obj['account_type'] = value
+        return value
+
+
+class OptionalAccountPrompt(click.Option):
+    def prompt_for_value(self, ctx):
+        account_type = ctx.obj.get('account_type')
+        if account_type == 'singlecc':
+            return
+        super(OptionalAccountPrompt, self).prompt_for_value(ctx)
+
+
 @click.group()
 @click.option('--logging', default='INFO', help='Logging level.')
 @click.pass_context
@@ -27,12 +42,12 @@ def main(ctx, logging):
     help='Your Chase bank online password.'
 )
 @click.option(
-    '--account_type', type=click.Choice(['cc', 'singlecc', 'checking']), default='cc',
+    '--account_type', type=StoredAccountChoice(['cc', 'singlecc', 'checking']), default='cc',
     help='The type of account you want data from. Used for traversing different download areas. Use "singlecc" if you only have one credit card account with chase.',
     show_default=True
 )
 @click.option(
-    '--account_id', prompt=True, hide_input=True,
+    '--account_id', cls=OptionalAccountPrompt, prompt=True, hide_input=True,
     help='Account id. Used to match select boxes on the UI.'
 )
 @click.option(
@@ -104,4 +119,3 @@ def bofa(ctx, *args, **kwargs):
     except Exception:
         driver.close()
         raise
-
