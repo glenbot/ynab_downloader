@@ -22,7 +22,7 @@ class OptionalAccountPrompt(click.Option):
         account_type = ctx.obj.get('account_type')
         if account_type == 'singlecc':
             return
-        super(OptionalAccountPrompt, self).prompt_for_value(ctx)
+        return super(OptionalAccountPrompt, self).prompt_for_value(ctx)
 
 
 @click.group()
@@ -71,6 +71,8 @@ def chase(ctx, *args, **kwargs):
     driver_path = ctx.obj['driver_path']
     driver = get_driver(driver_path)
 
+    print(kwargs)
+    return
     try:
         chase_downloader = ChaseDownloader(driver, kwargs)
         chase_downloader.run()
